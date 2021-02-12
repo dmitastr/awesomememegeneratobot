@@ -1,0 +1,212 @@
+- filename: everywhere.jpg
+  short_name: везде
+  url: https://pbs.twimg.com/media/D_1pEiZUYAIxzkG.jpg
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 250
+    - 15
+    ratio:
+    - 4
+    - 1
+    size_cap:
+    - 520
+    - 130
+- filename: hug_behind.jpg
+  short_name: приподнял
+  url: https://imgflip.com/s/meme/Running-Away-Balloon.jpg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 220
+    - 65
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 120
+    - 120
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 20
+    - 350
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 100
+    - 90
+- filename: nordic_gamer.jpg
+  short_name: геймер
+  url: https://medialeaks.ru/wp-content/uploads/2020/08/annotacziya-2020-08-04-154532-768x719.jpg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 15
+    - 220
+    ratio:
+    - 2
+    - 1
+    size_cap:
+    - 200
+    - 100
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 400
+    - 220
+    ratio:
+    - 2
+    - 1
+    size_cap:
+    - 180
+    - 100
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 15
+    - 520
+    ratio:
+    - 2
+    - 1
+    size_cap:
+    - 200
+    - 100
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 400
+    - 520
+    ratio:
+    - 2
+    - 1
+    size_cap:
+    - 180
+    - 100
+- filename: shit.jpg
+  short_name: дерьмо
+  url: https://i.imgflip.com/17811q.jpg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 95
+    - 450
+    ratio:
+    - 3
+    - 1
+    size_cap:
+    - 210
+    - 55
+- filename: what_hour.jpg
+  short_name: который_час
+  url: https://i.pinimg.com/originals/7f/3f/48/7f3f48d2134a47cdef72784ce21492d9.jpg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    font: Roboto-Bold.ttf
+    position:
+    - 600
+    - 170
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 130
+    - 130
+- filename: brain.jpg
+  short_name: мозг
+  url: https://www.meme-arsenal.com/memes/c268f44cc5dff81dd84453e9225deb10.jpg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 20
+    - 20
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 300
+    - 225
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 20
+    - 260
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 300
+    - 225
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 20
+    - 500
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 300
+    - 225
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 20
+    - 735
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 300
+    - 225
+
+- filename: smart.jpg
+  short_name: умник
+  url: https://www.meme-arsenal.com/memes/5042c98088afd9b9a11a9f71e8f05681.jpg
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 245
+    - 70
+    ratio:
+    - 4
+    - 1
+    size_cap:
+    - 690
+    - 135
