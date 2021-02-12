@@ -1,3 +1,9 @@
+# Files
+imageban_api.py
+imgur_api.py
+json_to_yaml.py
+tokens.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
