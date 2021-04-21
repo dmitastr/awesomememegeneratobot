@@ -234,6 +234,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             img_edited = image_edit(img_idx, texts, config)
             if img_edited["err_code"]==0:
                 link = get_image_link(img_edited, context.bot_data[IMG_API_APP])
+                logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
                 if link:
                     results = [
                         InlineQueryResultPhoto(
@@ -246,7 +247,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                         )
                     ]
                     update.inline_query.answer(results)
-                    logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
+                    # logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
             else:
                 pass
     results = [
