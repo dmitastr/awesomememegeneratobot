@@ -67,7 +67,7 @@ IMG_API_APP = "imageban_api"
 
 class ImagebanApi:
     def __init__(self):
-        client_id = IMAGEBAN_CLIENT_ID
+        # client_id = IMAGEBAN_CLIENT_ID
         secret_key = IMAGEBAN_SECRET_KEY
         self.secret_key = secret_key
         self.base_url = "https://api.imageban.ru/v1"
@@ -179,7 +179,6 @@ def image_edit(img_name: str, texts: list, config: list) -> dict:
         cur_command = cur_command[0]
         err = "Маловато текстов! Бот хочет {1}, а ты присылаешь {0}".format(len(texts), len(cur_command["texts"]))
         if len(texts)==len(cur_command["texts"]) and texts[0]:
-            filename = cur_command["filename"]
             full_url = cur_command["full_url"]
             text_params_ls = cur_command["texts"]
             # my_image = Image.open(f"./meme_images/{filename}")
@@ -285,7 +284,7 @@ def update_config(update: Update, context: CallbackContext) -> None:
 def delete_old_images(context: CallbackContext) -> None:
     imgur_api = context.bot_data["imgur_api"]
     for img_hash in context.bot_data.get("imgdeletehash", []):
-        res = imgur_api.image_delete(img_hash)
+        imgur_api.image_delete(img_hash)
 
 
 def main():
