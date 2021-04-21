@@ -224,7 +224,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
     config = context.bot_data["config"]
     short_name = ""
     
-    pat = re.compile(r"([\wА-Яа-я]+)\s?(.*)", re.DOTALL)
+    pat = re.compile(r"([\wА-Яа-я\d]+)\s?(.*)", re.DOTALL)
     if query:
         parsed = pat.search(query)
         if pat:
