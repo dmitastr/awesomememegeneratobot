@@ -41,6 +41,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+PORT = int(os.environ.get("PORT", "8443"))
 IMAGEBAN_CLIENT_ID = os.getenv("IMAGEBAN_CLIENT_ID")
 IMAGEBAN_SECRET_KEY = os.getenv("IMAGEBAN_SECRET_KEY")
 IMGUR_ACCESS_TOKEN = os.getenv("IMGUR_ACCESS_TOKEN")
@@ -295,8 +296,8 @@ def main():
     job_queue.run_once(img_api_init, when=0)
     job_queue.run_repeating(delete_old_images, interval=60, first=3600)
 
-    # updater.start_webhook(listen="0.0.0.0", port=5000, url_path=BOT_TOKEN)
-    # updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
+    updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
+    updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
 
     updater.start_polling()
     updater.idle()
