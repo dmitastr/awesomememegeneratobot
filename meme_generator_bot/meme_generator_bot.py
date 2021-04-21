@@ -249,17 +249,15 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             else:
                 pass
     results = [
-        InlineQueryResultPhoto(
+        InlineQueryResultArticle(
             id=meme.get("filename"),
             # title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
             title=create_title(i, meme["texts"]),
             thumb_url=meme.get("url"),
-            photo_url=meme.get("url"),
-            # thumb_width=800,
-            # thumb_height=800,
-            photo_width=500,
-            photo_height=500,
-            # input_message_content=create_template(meme)
+            url=meme.get("url"),
+            thumb_width=800,
+            thumb_height=800,
+            input_message_content=create_template(meme)
         )
         for i, meme in enumerate(config)
         if meme.get("url") 
