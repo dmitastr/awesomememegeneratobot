@@ -170,13 +170,13 @@ def text_insert(image_editable, text: str, ratio: list, position: list, color: l
     return image_editable
 
 
-def image_edit(img_name: str, texts: list, config: list) -> dict:
+def image_edit(img_idx: str, texts: list, config: list) -> dict:
     b = io.BytesIO()
-    cur_command = [c for c in config if c["short_name"]==img_name]
-    err = f"Не найден мем с именем {img_name}"
+    cur_command = config[int(img_idx)]
+    err = "Не найден мем с именем"
     err_code = 1
     if cur_command:
-        cur_command = cur_command[0]
+        # cur_command = cur_command[0]
         err = "Маловато текстов! Бот хочет {1}, а ты присылаешь {0}".format(len(texts), len(cur_command["texts"]))
         if len(texts)==len(cur_command["texts"]) and texts[0]:
             full_url = cur_command["full_url"]
@@ -206,6 +206,15 @@ def image_edit(img_name: str, texts: list, config: list) -> dict:
     return {"err_code": err_code, "img": b.getvalue(), "err_msg": err}
 
 
+def create_title(img_idx: int, texts: list) -> str:
+    title = ""
+    text_template = " ".join([f"текст{i}" for i in range(1, len(texts)+1)])
+    if len(texts)>1:
+        title += "{} текста (разделять переносом строки. ".format(len(texts), )
+    title += "чтобы отправить мем продолжите вводить: {0} {1}".format(img_idx, text_template)
+    return title
+
+
 def show_available_meme(update: Update, context: CallbackContext) -> None:
     def create_template(meme: dict) -> str:
         texts = "\n".join([f"Текст {i}" for i, text in enumerate(meme["texts"], 1)])
@@ -219,9 +228,9 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
     if query:
         parsed = pat.search(query)
         if pat:
-            short_name, texts = parsed.groups()
+            img_idx, texts = parsed.groups()
             texts = texts.strip().split("\n")
-            img_edited = image_edit(short_name, texts, config)
+            img_edited = image_edit(img_idx, texts, config)
             if img_edited["err_code"]==0:
                 link = get_image_link(img_edited, context.bot_data[IMG_API_APP])
                 if link:
@@ -236,20 +245,23 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                         )
                     ]
                     update.inline_query.answer(results)
-                    # if 
                     logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
             else:
                 pass
     results = [
-        InlineQueryResultArticle(
+        InlineQueryResultPhoto(
             id=meme.get("filename"),
-            title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
+            # title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
+            title=create_title(i, meme["texts"]),
             thumb_url=meme.get("url"),
-            thumb_width=800,
-            thumb_height=800,
-            input_message_content=create_template(meme)
+            photo_url=meme.get("url"),
+            # thumb_width=800,
+            # thumb_height=800,
+            photo_width=500,
+            photo_height=500,
+            # input_message_content=create_template(meme)
         )
-        for meme in config
+        for i, meme in enumerate(config)
         if meme.get("url") 
         and ((meme["short_name"]==short_name) if short_name else True)
     ]
@@ -288,7 +300,6 @@ def delete_old_images(context: CallbackContext) -> None:
 
 
 def main():
-
     updater = Updater(token=BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
     job_queue = updater.job_queue

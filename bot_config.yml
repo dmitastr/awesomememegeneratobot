@@ -217,3 +217,88 @@
     size_cap:
     - 690
     - 135
+- filename: fire.jpg
+  short_name: огонь
+  url: https://i6.imageban.ru/out/2021/04/21/5ba90018118d676bfc6c486f66f17695.png
+  full_url: https://i6.imageban.ru/out/2021/04/21/5ba90018118d676bfc6c486f66f17695.png
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 160
+    - 330
+    ratio:
+    - 4
+    - 1
+    size_cap:
+    - 400
+    - 130
+- filename: sceptic.jpg
+  short_name: скептик
+  url: https://i5.imageban.ru/out/2021/04/21/831fe50147a3ae6436b377b30365613f.png
+  full_url: https://i5.imageban.ru/out/2021/04/21/831fe50147a3ae6436b377b30365613f.png
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 160
+    - 330
+    ratio:
+    - 4
+    - 1
+    size_cap:
+    - 400
+    - 130
+- filename: what.jpg
+  short_name: что
+  url: https://i1.imageban.ru/out/2021/04/21/8cddf0b4e951325282555f2334f04639.png
+  full_url: https://i1.imageban.ru/out/2021/04/21/8cddf0b4e951325282555f2334f04639.png
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 160
+    - 330
+    ratio:
+    - 4
+    - 1
+    size_cap:
+    - 400
+    - 130
+- filename: is_this.jpg
+  short_name: это_мем
+  url: https://i5.imageban.ru/out/2021/04/21/d7d459bfb4842f20e47d8338fa429cbf.jpg
+  full_url: https://i5.imageban.ru/out/2021/04/21/d7d459bfb4842f20e47d8338fa429cbf.jpg
+  texts:
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 1150
+    - 190
+    ratio:
+    - 1
+    - 1
+    size_cap:
+    - 350
+    - 350
+  - color:
+    - 255
+    - 255
+    - 255
+    position:
+    - 300
+    - 1250
+    ratio:
+    - 5
+    - 1
+    size_cap:
+    - 990
+    - 200
