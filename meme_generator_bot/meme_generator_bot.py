@@ -328,6 +328,7 @@ def delete_old_images(context: CallbackContext) -> None:
 def main():
 
     updater = Updater(token=BOT_TOKEN, use_context=True)
+    updater.start_webhook(listen="0.0.0.0", port=5000, url_path=BOT_TOKEN)
     updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
     dispatcher = updater.dispatcher
     job_queue = updater.job_queue
