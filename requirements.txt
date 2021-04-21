@@ -1,0 +1,2 @@
+PIL
+python-telegram-bot
