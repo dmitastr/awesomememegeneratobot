@@ -1,2 +1,2 @@
-PIL
+Pillow
 python-telegram-bot
