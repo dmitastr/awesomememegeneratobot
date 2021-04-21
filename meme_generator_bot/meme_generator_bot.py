@@ -47,13 +47,14 @@ IMAGEBAN_SECRET_KEY = os.getenv("IMAGEBAN_SECRET_KEY")
 IMGUR_ACCESS_TOKEN = os.getenv("IMGUR_ACCESS_TOKEN")
 
 help_msg = """Бот для тех случаев, когда тебе лень искать онлайн генератор мемов, но очень хочется выпендриться.
-Доступны команды:
-1. Сгенерить картинку со своим текстом
-Мембот <название мема> 
+Как пользоваться:
+В любом чате или в личке вводим 
+<code>@awesomeMemeGeneratorBot </code>
+Бот покажет список доступных мемов и сколько нужно текстов
+Чтобы выбрать мем надо ввести
+<code>@awesomeMemeGeneratorBot название_мема
 текст 1
-[текст 2] и т.д.
-2. Посмотреть список доступных мемов и сколько текстов к ним нужно (пока без картинок)
-Мембот покажи <тут любой текст>
+текст 2 и т.д.</code>
 """
 IMG_API_APP = "imageban_api"
 
@@ -251,10 +252,11 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
 def start(update: Update, context: CallbackContext) -> None:
     if update.message.chat.id==40322523:
         update.message.reply_text("Welcome, meme lord!")
-
+    else:
+        update.message.reply_text(help_msg, parse_mode=ParseMode.HTML)
 
 def help(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(help_msg)
+    update.message.reply_text(help_msg, parse_mode=ParseMode.HTML)
 
 
 def update_config_first(context: CallbackContext) -> None:
@@ -289,7 +291,7 @@ def main():
     )
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help))
-    dispatcher.add_handler(CommandHandler("upd", update_config))
+    # dispatcher.add_handler(CommandHandler("upd", update_config))
     dispatcher.add_handler(create_meme_inline_handler)
 
     job_queue.run_once(update_config_first, when=0)
