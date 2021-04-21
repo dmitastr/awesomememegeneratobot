@@ -304,7 +304,7 @@ def main():
 
     job_queue.run_once(update_config_first, when=0)
     job_queue.run_once(img_api_init, when=0)
-    job_queue.run_repeating(delete_old_images, interval=60, first=3600)
+    job_queue.run_repeating(delete_old_images, interval=3600, first=3600)
 
     updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
     updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
