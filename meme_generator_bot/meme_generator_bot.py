@@ -233,7 +233,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             img_idx, texts = parsed.groups()
             texts = texts.strip().split("\n")
             img_edited = image_edit(img_idx, texts, config)
-            short_name = config[int(img_idx)-1]
+            short_name = config[int(img_idx)-1]["short_name"]
             if img_edited["err_code"]==0:
                 link = get_image_link(img_edited, context.bot_data[IMG_API_APP])
                 logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
@@ -253,7 +253,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             else:
                 pass
         elif pat_multi.search(query):
-            img_idx = pat_multi.search(query).groups()
+            img_idx = pat_multi.search(query).groups()[0]
     results = [
         InlineQueryResultArticle(
             id=meme.get("filename"),
@@ -268,7 +268,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
         )
         for i, meme in enumerate(config, 1)
         if meme.get("url") 
-        and (img_idx=="-1" or i==(int(img_idx)-1))
+        and (img_idx=="-1" or i==int(img_idx))
     ]
     update.inline_query.answer(results)
 
