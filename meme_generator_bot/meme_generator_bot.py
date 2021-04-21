@@ -224,11 +224,12 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
     query = update.inline_query.query
     config = context.bot_data["config"]
     short_name = ""
-    
+    img_idx = "-1"
     pat = re.compile(r"([\wА-Яа-я\d]+)\s?(.*)", re.DOTALL)
+    pat_multi = re.compile(r"([\wА-Яа-я\d]+).*", re.DOTALL)
     if query:
         parsed = pat.search(query)
-        if pat:
+        if parsed:
             img_idx, texts = parsed.groups()
             texts = texts.strip().split("\n")
             img_edited = image_edit(img_idx, texts, config)
@@ -251,6 +252,8 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                     # logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
             else:
                 pass
+        elif pat_multi.search(query):
+            img_idx = pat_multi.search(query).groups()
     results = [
         InlineQueryResultArticle(
             id=meme.get("filename"),
@@ -265,7 +268,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
         )
         for i, meme in enumerate(config, 1)
         if meme.get("url") 
-        and ((meme["short_name"]==short_name) if short_name else True)
+        and (img_idx=="-1" or i==(int(img_idx)-1))
     ]
     update.inline_query.answer(results)
 
