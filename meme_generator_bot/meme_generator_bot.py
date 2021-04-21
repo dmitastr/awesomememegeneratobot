@@ -232,6 +232,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             img_idx, texts = parsed.groups()
             texts = texts.strip().split("\n")
             img_edited = image_edit(img_idx, texts, config)
+            short_name = config[int(img_idx)-1]
             if img_edited["err_code"]==0:
                 link = get_image_link(img_edited, context.bot_data[IMG_API_APP])
                 logger.info("User {0} request meme, url {1}".format(update.effective_user.username, link))
