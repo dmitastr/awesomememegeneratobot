@@ -1,6 +1,7 @@
 - filename: everywhere.jpg
   short_name: везде
   url: https://pbs.twimg.com/media/D_1pEiZUYAIxzkG.jpg
+  full_url: https://i3.imageban.ru/out/2021/04/21/6b8a3cda19977102667b40a4a416a9f8.jpg
   texts:
   - color:
     - 255
@@ -18,6 +19,7 @@
 - filename: hug_behind.jpg
   short_name: приподнял
   url: https://imgflip.com/s/meme/Running-Away-Balloon.jpg
+  full_url: https://i2.imageban.ru/out/2021/04/21/5a9dad1af029c775d0be0d80a1e25160.jpg
   texts:
   - color:
     - 0
@@ -48,6 +50,7 @@
 - filename: nordic_gamer.jpg
   short_name: геймер
   url: https://medialeaks.ru/wp-content/uploads/2020/08/annotacziya-2020-08-04-154532-768x719.jpg
+  full_url: https://i4.imageban.ru/out/2021/04/21/b0bd6c94e553f888841241a3497167bc.jpg
   texts:
   - color:
     - 0
@@ -104,6 +107,7 @@
 - filename: shit.jpg
   short_name: дерьмо
   url: https://i.imgflip.com/17811q.jpg
+  full_url: https://i2.imageban.ru/out/2021/04/21/5cb18bc699045fe0db2e35f7cdfb4dc0.jpg
   texts:
   - color:
     - 0
@@ -121,6 +125,7 @@
 - filename: what_hour.jpg
   short_name: который_час
   url: https://i.pinimg.com/originals/7f/3f/48/7f3f48d2134a47cdef72784ce21492d9.jpg
+  full_url: https://i3.imageban.ru/out/2021/04/21/137433b47a46ab3ae2b4811c18c18c14.jpg
   texts:
   - color:
     - 0
@@ -139,6 +144,7 @@
 - filename: brain.jpg
   short_name: мозг
   url: https://www.meme-arsenal.com/memes/c268f44cc5dff81dd84453e9225deb10.jpg
+  full_url: https://i2.imageban.ru/out/2021/04/21/ef7ad69ef6d9d3e1e5ad0e5852eb3e52.jpg
   texts:
   - color:
     - 0
@@ -196,6 +202,7 @@
 - filename: smart.jpg
   short_name: умник
   url: https://www.meme-arsenal.com/memes/5042c98088afd9b9a11a9f71e8f05681.jpg
+  full_url: https://i6.imageban.ru/out/2021/04/21/8dbc9df69a8340839b9ed89e3ac932db.jpg
   texts:
   - color:
     - 255

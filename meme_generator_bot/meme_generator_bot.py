@@ -172,8 +172,10 @@ def image_edit(img_name: str, texts: list, config: list) -> dict:
         err = "Маловато текстов! Бот хочет {1}, а ты присылаешь {0}".format(len(texts), len(cur_command["texts"]))
         if len(texts)==len(cur_command["texts"]) and texts[0]:
             filename = cur_command["filename"]
+            full_url = cur_command["full_url"]
             text_params_ls = cur_command["texts"]
-            my_image = Image.open(f"./meme_images/{filename}")
+            # my_image = Image.open(f"./meme_images/{filename}")
+            my_image = Image.open(requests.get(full_url, stream=True).raw)
             image_editable = ImageDraw.Draw(my_image)
             for text, text_params in zip(texts, text_params_ls):
                 position = text_params["position"]
@@ -195,56 +197,6 @@ def image_edit(img_name: str, texts: list, config: list) -> dict:
             err_code = 0
             my_image.save(b, "JPEG")
     return {"err_code": err_code, "img": b.getvalue(), "err_msg": err}
-
-
-def create_meme(update: Update, context: CallbackContext) -> None:
-    pat = re.compile(r"^Мембот ([\wА-Яа-я]+)\s?(.*)\s?(.*)$")
-    first, *texts = update.message.text.split("\n")
-    query = pat.search(first)
-    config = context.bot_data["config"]
-    # query = first.replace("Мембот ", "").strip()
-    err = "Нет текста для вставки"    
-    if query:
-        short_name, *text_start = query.groups()
-        if text_start:
-            texts = ["".join(text_start)] + texts
-        img_edited = image_edit(short_name, texts, config)
-        if img_edited["err_code"]==0:
-            update.message.reply_photo(img_edited["img"], quote=False)
-        err = img_edited["err_msg"]
-        return
-    update.message.reply_text(err+"\nПришли мне корректную команду, мешок с мясом!")
-
-
-def show_memes(update: Update, context: CallbackContext) -> None:
-    config = context.bot_data["config"]
-    update.message.reply_text(
-        "Вот мемы, которые ты жаждешь!\n"+
-        "\n".join(["{0} - нужно {1} текст(а)".format(meme["short_name"], len(meme["texts"])) for meme in config])
-    )
-
-
-# def show_available_meme(update: Update, context: CallbackContext) -> None:
-#     def create_template(meme: dict) -> str:
-#         texts = "\n".join([f"Текст {i}" for i, text in enumerate(meme["texts"], 1)])
-#         template = "Чтобы отправить этот мем пришли\n<code>Мембот {0}\n{1}</code>".format(meme["short_name"], texts)
-#         return InputTextMessageContent(message_text=template, parse_mode=ParseMode.HTML)
-
-#     config = context.bot_data["config"]
-#     results = [
-#         InlineQueryResultPhoto(
-#             id=meme.get("filename"),
-#             title=meme["short_name"],
-#             photo_width=500,
-#             photo_height=500,
-#             photo_url=meme.get("url"),
-#             thumb_url=meme.get("url"),
-#             input_message_content=create_template(meme)
-#         )
-#         for meme in config
-#         if meme.get("url")
-#     ]
-#     update.inline_query.answer(results)
 
 
 def show_available_meme(update: Update, context: CallbackContext) -> None:
@@ -330,22 +282,10 @@ def main():
     updater = Updater(token=BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
     job_queue = updater.job_queue
-
-    # chat_ids = [40322523, -1001328072340]
-    create_meme_handler = MessageHandler(
-            Filters.regex(r"^Мембот .*")&(~Filters.regex(r"^Мембот покажи.*$")),
-            create_meme 
-    )
-    show_meme_handler = MessageHandler(
-            Filters.regex(r"^Мембот покажи.*$"),
-            show_memes
-    )
     create_meme_inline_handler = InlineQueryHandler(
         show_available_meme,
         pass_update_queue=True
     )
-    dispatcher.add_handler(create_meme_handler)
-    dispatcher.add_handler(show_meme_handler)
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("upd", update_config))
@@ -355,8 +295,8 @@ def main():
     job_queue.run_once(img_api_init, when=0)
     job_queue.run_repeating(delete_old_images, interval=60, first=3600)
 
-    updater.start_webhook(listen="0.0.0.0", port=5000, url_path=BOT_TOKEN)
-    updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
+    # updater.start_webhook(listen="0.0.0.0", port=5000, url_path=BOT_TOKEN)
+    # updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
 
     updater.start_polling()
     updater.idle()
