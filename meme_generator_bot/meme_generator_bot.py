@@ -237,6 +237,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                         )
                     ]
                     update.inline_query.answer(results)
+                    logger.info("User {0} request meme, url {1}".format(update.effective_chat.username, link))
             else:
                 pass
     results = [
