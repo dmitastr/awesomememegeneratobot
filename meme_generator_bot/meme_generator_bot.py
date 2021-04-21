@@ -211,14 +211,15 @@ def create_title(img_idx: int, texts: list) -> str:
     text_template = " ".join([f"текст{i}" for i in range(1, len(texts)+1)])
     # if len(texts)>1:
     #     title += "{} текста (разделять переносом строки). ".format(len(texts))
-    title += "чтобы отправить мем вводите (несколько текстов - перенос строки): {0} {1}".format(img_idx, text_template)
+    title += "чтобы отправить мем вводи: {0} {1}".format(img_idx, text_template)
     return title
 
 
 def show_available_meme(update: Update, context: CallbackContext) -> None:
-    def create_template(meme: dict) -> str:
+    def create_template(img_idx: int) -> str:
+        meme = config[img_idx-1]
         texts = "\n".join([f"Текст {i}" for i, text in enumerate(meme["texts"], 1)])
-        template = "Чтобы отправить этот мем введи текст\n<code>@awesomeMemeGeneratorBot {0} {1}</code>".format(meme["short_name"], texts)
+        template = "Чтобы отправить этот мем введи текст\n<code>@awesomeMemeGeneratorBot {0} {1}</code>".format(img_idx, texts)
         return InputTextMessageContent(message_text=template, parse_mode=ParseMode.HTML)
     query = update.inline_query.query
     config = context.bot_data["config"]
@@ -252,13 +253,13 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
         InlineQueryResultArticle(
             id=meme.get("filename"),
             # title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
-            title=create_title(i, meme["texts"]),
+            title="несколько текстов - перенос строки",
             description=create_title(i, meme["texts"]),
             thumb_url=meme.get("url"),
             url=meme.get("url"),
             thumb_width=800,
             thumb_height=800,
-            input_message_content=create_template(meme)
+            input_message_content=create_template(i)
         )
         for i, meme in enumerate(config, 1)
         if meme.get("url") 
