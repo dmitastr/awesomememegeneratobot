@@ -172,7 +172,7 @@ def text_insert(image_editable, text: str, ratio: list, position: list, color: l
 
 def image_edit(img_idx: str, texts: list, config: list) -> dict:
     b = io.BytesIO()
-    cur_command = config[int(img_idx)]
+    cur_command = config[int(img_idx)-1]
     err = "Не найден мем с именем"
     err_code = 1
     if cur_command:
@@ -209,9 +209,9 @@ def image_edit(img_idx: str, texts: list, config: list) -> dict:
 def create_title(img_idx: int, texts: list) -> str:
     title = ""
     text_template = " ".join([f"текст{i}" for i in range(1, len(texts)+1)])
-    if len(texts)>1:
-        title += "{} текста (разделять переносом строки. ".format(len(texts), )
-    title += "чтобы отправить мем продолжите вводить: {0} {1}".format(img_idx, text_template)
+    # if len(texts)>1:
+    #     title += "{} текста (разделять переносом строки). ".format(len(texts))
+    title += "чтобы отправить мем вводите (несколько текстов - перенос строки): {0} {1}".format(img_idx, text_template)
     return title
 
 
@@ -253,13 +253,14 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
             id=meme.get("filename"),
             # title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
             title=create_title(i, meme["texts"]),
+            description=create_title(i, meme["texts"]),
             thumb_url=meme.get("url"),
             url=meme.get("url"),
             thumb_width=800,
             thumb_height=800,
             input_message_content=create_template(meme)
         )
-        for i, meme in enumerate(config)
+        for i, meme in enumerate(config, 1)
         if meme.get("url") 
         and ((meme["short_name"]==short_name) if short_name else True)
     ]
