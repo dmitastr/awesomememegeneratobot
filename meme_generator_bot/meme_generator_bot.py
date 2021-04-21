@@ -301,7 +301,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
     updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
 
-    updater.start_polling()
+    # updater.start_polling()
     updater.idle()
 
 
