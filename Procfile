@@ -1,1 +1,1 @@
-bot: python3 ./meme_generator_bot/meme_generator_bot.py
+web: python ./meme_generator_bot/meme_generator_bot.py
