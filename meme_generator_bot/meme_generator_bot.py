@@ -3,6 +3,8 @@ import base64
 import math
 import requests
 import os
+import traceback
+import sys
 from PIL import Image, ImageFont, ImageDraw 
 from telegram.ext import (
     Updater, 
@@ -303,6 +305,26 @@ def delete_old_images(context: CallbackContext) -> None:
         imgur_api.image_delete(img_hash)
 
 
+def error_callback(update: Update, context: CallbackContext) -> None:
+    trace = "".join(traceback.format_tb(sys.exc_info()[2]))
+    username = ""
+    chat = ""
+    query = ""
+    if update:
+        payload = ""
+        if update.effective_user:
+            username = update.effective_user.username
+        if update.effective_chat:
+            chat = f'{update.effective_chat.title}_{update.effective_chat.id}'
+            if update.effective_chat.username:
+                username = update.effective_chat.username
+        if update.inline_query:
+            query = update.inline_query.query
+    logger.error(f"username {username}, chat {chat}, query {query}")
+    logger.error(trace)
+    raise
+
+
 def main():
     updater = Updater(token=BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
@@ -315,6 +337,8 @@ def main():
     dispatcher.add_handler(CommandHandler("help", help))
     # dispatcher.add_handler(CommandHandler("upd", update_config))
     dispatcher.add_handler(create_meme_inline_handler)
+
+    dispatcher.add_error_handler(error_callback)
 
     job_queue.run_once(update_config_first, when=0)
     job_queue.run_once(img_api_init, when=0)
