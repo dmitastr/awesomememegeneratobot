@@ -320,9 +320,9 @@ def error_callback(update: Update, context: CallbackContext) -> None:
                 username = update.effective_chat.username
         if update.inline_query:
             query = update.inline_query.query
+    logger.error(msg="Exception while handling an update:", exc_info=context.error)
     logger.error(f"username {username}, chat {chat}, query {query}")
     logger.error(trace)
-    raise
 
 
 def main():
