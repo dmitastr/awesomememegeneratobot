@@ -389,8 +389,8 @@ def main():
             CommandHandler("add_meme", add_meme_image, filters=Filters.private)
         ],
         states={
-            SEND_IMG: MessageHandler(Filters.photo, add_meme_text),
-            SEND_TXT: MessageHandler(Filters.text, add_meme_end),
+            SEND_IMG: [MessageHandler(Filters.photo, add_meme_text)],
+            SEND_TXT: [MessageHandler(Filters.text, add_meme_end)],
         },
         fallbacks=[
             MessageHandler(Filters.regex("^Cancel$"), add_meme_cancel)
