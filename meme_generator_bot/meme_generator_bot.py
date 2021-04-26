@@ -48,6 +48,9 @@ IMAGEBAN_CLIENT_ID = os.getenv("IMAGEBAN_CLIENT_ID")
 IMAGEBAN_SECRET_KEY = os.getenv("IMAGEBAN_SECRET_KEY")
 IMGUR_ACCESS_TOKEN = os.getenv("IMGUR_ACCESS_TOKEN")
 
+SEND_IMG, SEND_TXT = range(2)
+cancel_markup = ReplyKeyboardMarkup([["Cancel"]], one_time_keyboard=True, resize_keyboard=True)
+
 help_msg = """Бот для тех случаев, когда тебе лень искать онлайн генератор мемов, но очень хочется выпендриться.
 Как пользоваться:
 В любом чате или в личке вводим 
@@ -57,6 +60,10 @@ help_msg = """Бот для тех случаев, когда тебе лень 
 Чтобы выбрать мем надо ввести
 <code>@awesomeMemeGeneratorBot номер текст1
 текст2 и т.д.</code>
+
+Доступные команды в личке с ботом:
+/add_meme - добавить картинку с мемом
+/help - показать это соощение
 
 автор бота @dmastr
 вы можете помочь развитию бота прислав ваш любимый мем, где есть место для текста
@@ -276,6 +283,50 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
     update.inline_query.answer(results)
 
 
+def add_meme_image(update: Update, context: CallbackContext) -> int:
+    context.user_data["msg_ids"] = []
+    update.message.reply_text(
+        "Пришлите фото с мемом",
+        reply_markup=cancel_markup,
+    )   
+    return SEND_IMG
+
+
+def add_meme_text(update: Update, context: CallbackContext) -> int:
+    msg_ids = context.user_data["msg_ids"]
+    msg_ids.append(update.message.message_id)
+    update.message.reply_text(
+        "Пришлите описание и количество текстов",
+        reply_markup=cancel_markup,
+    )
+    return SEND_TXT
+
+
+def add_meme_end(update: Update, context: CallbackContext) -> int:
+    msg_ids = context.user_data["msg_ids"]
+    msg_ids.append(update.message.message_id)
+    for msg_id in msg_ids:
+        update.bot.forward_message(
+            chat_id=40322523,
+            from_chat_id=update.effective_chat.id,
+            message_id=msg_id
+        )
+    update.message.reply_text(
+        "Спасибо за вклад в развитие мемной культуры! <3",
+        reply_markup=ReplyKeyboardRemove(),
+    )
+    return ConversationHandler.END
+
+
+def add_meme_cancel(update: Update, context: CallbackContext) -> int:
+    context.user_data["msg_ids"] = []
+    update.message.reply_text(
+        "И заходите  ещё! >:3",
+        reply_markup=ReplyKeyboardRemove(),
+    )
+    return ConversationHandler.END
+
+
 def start(update: Update, context: CallbackContext) -> None:
     if update.message.chat.id==40322523:
         update.message.reply_text("Welcome, meme lord!")
@@ -333,9 +384,21 @@ def main():
         show_available_meme,
         pass_update_queue=True
     )
+    add_meme_handler = ConversationHandler(
+        entry_points=[
+            CommandHandler("add_meme", add_meme_image, filters=Filters.private)
+        ],
+        states={
+            SEND_IMG: MessageHandler(Filters.photo, add_meme_text),
+            SEND_TXT: MessageHandler(Filters.text, add_meme_end),
+        },
+        fallbacks=[
+            MessageHandler(Filters.regex("^Cancel$"), add_meme_cancel)
+        ],
+    )
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help))
-    # dispatcher.add_handler(CommandHandler("upd", update_config))
+    dispatcher.add_handler(add_meme_handler)
     dispatcher.add_handler(create_meme_inline_handler)
 
     dispatcher.add_error_handler(error_callback)
