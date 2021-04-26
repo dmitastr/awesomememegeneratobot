@@ -106,6 +106,13 @@ class ImgurApi:
         return self.api.delete(self.base_url+url)
 
 
+def get_random_meme() -> str:
+    resp = requests.get("https://meme-api.herokuapp.com/gimme")
+    if resp.json().get("url"):
+        return resp.json().get("url")
+    return None
+
+
 def get_image_link(image, img_api) -> str:
     def dict_search(dct, path):
         dct_tmp = dct
@@ -286,7 +293,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
 def add_meme_image(update: Update, context: CallbackContext) -> int:
     context.user_data["msg_ids"] = []
     update.message.reply_text(
-        "Пришлите фото с мемом",
+        "Пришлите фото с мемом - добавлять можно по одной картинке за раз",
         reply_markup=cancel_markup,
     )   
     return SEND_IMG
@@ -296,7 +303,7 @@ def add_meme_text(update: Update, context: CallbackContext) -> int:
     msg_ids = context.user_data["msg_ids"]
     msg_ids.append(update.message.message_id)
     update.message.reply_text(
-        "Пришлите описание и количество текстов",
+        "Пришлите описание и количество текстов. Вы ускорите добавление мема, если пришлёте координаты левого верхнего угла для текстового поля (Х, У) и размер в пикселях - по горизонтали и по вертикали.",
         reply_markup=cancel_markup,
     )
     return SEND_TXT
@@ -315,6 +322,9 @@ def add_meme_end(update: Update, context: CallbackContext) -> int:
         "Спасибо за вклад в развитие мемной культуры! <3",
         reply_markup=ReplyKeyboardRemove(),
     )
+    rnd_meme = get_random_meme()
+    if rnd_meme:
+        update.message.reply_text("Лови рандомный мем за свои труды\n"+rnd_meme)
     return ConversationHandler.END
 
 
@@ -332,6 +342,7 @@ def start(update: Update, context: CallbackContext) -> None:
         update.message.reply_text("Welcome, meme lord!")
     else:
         update.message.reply_text(help_msg, parse_mode=ParseMode.HTML)
+
 
 def help(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(help_msg, parse_mode=ParseMode.HTML)
