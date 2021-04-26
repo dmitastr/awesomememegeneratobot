@@ -255,7 +255,7 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                 pass
         elif pat_multi.search(query):
             img_idx = pat_multi.search(query).groups()[0]
-    title_single = ""
+    title_single = " "
     title_multi = "несколько текстов - перенос строки"
     results = [
         InlineQueryResultArticle(
