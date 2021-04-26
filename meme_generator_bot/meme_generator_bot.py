@@ -255,16 +255,18 @@ def show_available_meme(update: Update, context: CallbackContext) -> None:
                 pass
         elif pat_multi.search(query):
             img_idx = pat_multi.search(query).groups()[0]
+    title_single = ""
+    title_multi = "несколько текстов - перенос строки"
     results = [
         InlineQueryResultArticle(
             id=meme.get("filename"),
             # title="{0} - {1} текст(а)".format(meme["short_name"], len(meme["texts"])),
-            title="несколько текстов - перенос строки",
+            title=title_single if len(meme["texts"])==1 else title_multi,
             description=create_title(i, meme["texts"]),
             thumb_url=meme.get("url"),
             url=meme.get("url"),
-            thumb_width=800,
-            thumb_height=800,
+            thumb_width=1500,
+            thumb_height=1500,
             input_message_content=create_template(i)
         )
         for i, meme in enumerate(config, 1)
@@ -306,12 +308,11 @@ def delete_old_images(context: CallbackContext) -> None:
 
 
 def error_callback(update: Update, context: CallbackContext) -> None:
-    trace = "".join(traceback.format_tb(sys.exc_info()[2]))
+    # trace = "".join(traceback.format_tb(sys.exc_info()[2]))
     username = ""
     chat = ""
     query = ""
     if update:
-        payload = ""
         if update.effective_user:
             username = update.effective_user.username
         if update.effective_chat:
@@ -320,9 +321,8 @@ def error_callback(update: Update, context: CallbackContext) -> None:
                 username = update.effective_chat.username
         if update.inline_query:
             query = update.inline_query.query
-    logger.error(msg="Exception while handling an update:", exc_info=context.error)
     logger.error(f"username {username}, chat {chat}, query {query}")
-    logger.error(trace)
+    logger.error(msg="Exception while handling an update:", exc_info=context.error)
 
 
 def main():
