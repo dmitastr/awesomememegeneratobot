@@ -302,3 +302,34 @@
     size_cap:
     - 990
     - 200
+- filename: sad_cat.jpg
+  short_name: грустнокотики
+  url: https://i2.imageban.ru/out/2021/04/26/e880b77c52e40309a4ea00fa58d769dd.jpeg
+  full_url: https://i2.imageban.ru/out/2021/04/26/e880b77c52e40309a4ea00fa58d769dd.jpeg
+  texts:
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 65
+    - 450
+    ratio:
+    - 3
+    - 1
+    size_cap:
+    - 330
+    - 90
+  - color:
+    - 0
+    - 0
+    - 0
+    position:
+    - 650
+    - 450
+    ratio:
+    - 3
+    - 1
+    size_cap:
+    - 330
+    - 90
