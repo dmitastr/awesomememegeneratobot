@@ -306,7 +306,7 @@ def add_meme_end(update: Update, context: CallbackContext) -> int:
     msg_ids = context.user_data["msg_ids"]
     msg_ids.append(update.message.message_id)
     for msg_id in msg_ids:
-        update.bot.forward_message(
+        context.bot.forward_message(
             chat_id=40322523,
             from_chat_id=update.effective_chat.id,
             message_id=msg_id
@@ -321,7 +321,7 @@ def add_meme_end(update: Update, context: CallbackContext) -> int:
 def add_meme_cancel(update: Update, context: CallbackContext) -> int:
     context.user_data["msg_ids"] = []
     update.message.reply_text(
-        "И заходите  ещё! >:3",
+        "И заходите ещё! >:3",
         reply_markup=ReplyKeyboardRemove(),
     )
     return ConversationHandler.END
