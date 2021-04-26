@@ -427,7 +427,7 @@ def main():
     updater.bot.setWebhook('https://mem-generator.herokuapp.com/' + BOT_TOKEN)
 
     # updater.start_polling()
-    updater.idle()
+    # updater.idle()
 
 
 
