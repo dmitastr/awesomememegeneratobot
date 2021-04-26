@@ -107,6 +107,7 @@ class ImgurApi:
 
 
 def get_random_meme() -> str:
+    # https://github.com/D3vd/Meme_Api
     resp = requests.get("https://meme-api.herokuapp.com/gimme")
     if resp.json().get("url"):
         return resp.json().get("url")
@@ -404,7 +405,7 @@ def main():
                 MessageHandler(Filters.photo, add_meme_text)
             ],
             SEND_TXT: [
-                MessageHandler(Filters.text, add_meme_end)
+                MessageHandler(~Filters.regex("^Cancel$")&Filters.text, add_meme_end)
             ],
         },
         fallbacks=[
