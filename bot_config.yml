@@ -228,7 +228,7 @@
     - 255
     position:
     - 160
-    - 330
+    - 370
     ratio:
     - 4
     - 1
@@ -333,3 +333,17 @@
     size_cap:
     - 330
     - 90
+- filename: commi_rabbit.jpg
+  short_name: commi_rabbit
+  url: https://i5.imageban.ru/out/2021/05/12/35fa1fbb1fa74da76e37bf6aa2a5b1b2.jpeg
+  full_url: https://i5.imageban.ru/out/2021/05/12/35fa1fbb1fa74da76e37bf6aa2a5b1b2.jpeg
+  texts:
+  - color: [0, 0, 0]
+    position: [240, 80]
+    ratio: [5, 1]
+    size_cap: [750, 100]
+  - color: [0, 0, 0]
+    position: [180, 550]
+    ratio: [7, 1]
+    size_cap: [900, 100]
+
