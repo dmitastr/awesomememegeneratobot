@@ -347,3 +347,20 @@
     ratio: [7, 1]
     size_cap: [900, 100]
 
+- filename: anakin.jpg
+  short_name: anakin
+  url: https://i3.imageban.ru/out/2021/06/25/ed1235bf19ff50be9d994e0cb97cf688.jpeg
+  full_url: https://i3.imageban.ru/out/2021/06/25/ed1235bf19ff50be9d994e0cb97cf688.jpeg
+  texts:
+  - color: [255, 255, 255]
+    position: [20, 250]
+    ratio: [5, 1]
+    size_cap: [275, 65]
+  - color: [255, 255, 255]
+    position: [350, 250]
+    ratio: [5, 1]
+    size_cap: [275, 65]
+  - color: [255, 255, 255]
+    position: [350, 580]
+    ratio: [5, 1]
+    size_cap: [275, 65]
